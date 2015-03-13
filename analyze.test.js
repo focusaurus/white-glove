@@ -1,7 +1,7 @@
 var test = require("tape");
 var analyze = require("./analyze");
 
-test("analyze should store type info per-path", function (assert) {
+test("analyze should store type info per-path", function(assert) {
   var stats = {};
   analyze(stats, null, {
     one: "one",
@@ -9,7 +9,7 @@ test("analyze should store type info per-path", function (assert) {
     three: 42,
     four: [],
     five: [1],
-    six: function(){}
+    six: function() {}
   });
   assert.equal(stats.one.string, 1);
   assert.equal(stats.two.boolean, 1);
@@ -20,14 +20,38 @@ test("analyze should store type info per-path", function (assert) {
   assert.end();
 });
 
-test("analyze should count type instances properly", function (assert) {
+test("analyze should count type instances properly", function(assert) {
   var stats = {};
-  analyze(stats, null, {one: true, two: 42});
-  analyze(stats, null, {one: false, two: "TWO"});
-  analyze(stats, null, {one: true, two: [2, 2]});
+  analyze(stats, null, {
+    one: true,
+    two: 42
+  });
+  analyze(stats, null, {
+    one: false,
+    two: "TWO"
+  });
+  analyze(stats, null, {
+    one: true,
+    two: [2, 2]
+  });
   assert.equal(stats.one.boolean, 3);
   assert.equal(stats.two.number, 1);
   assert.equal(stats.two.string, 1);
   assert.equal(stats.two.array, 1);
+  assert.end();
+});
+
+test("analyze should handle nested objects as paths", function(assert) {
+  var stats = {};
+  analyze(stats, null, {
+    oneA: {
+      twoA: 42,
+      twoB: {
+        threeA: false
+      }
+    }
+  });
+  assert.equal(stats["oneA.twoA"].number, 1);
+  assert.equal(stats["oneA.twoB.threeA"].boolean, 1);
   assert.end();
 });
