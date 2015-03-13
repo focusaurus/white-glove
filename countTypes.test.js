@@ -1,5 +1,5 @@
-var test = require("tape");
 var countTypes = require("./countTypes");
+var test = require("tape");
 
 test("countTypes should store type info per-path", function(assert) {
   var stats = {};
@@ -43,24 +43,18 @@ test("countTypes should count type instances properly", function(assert) {
 
 test("countTypes should handle nested objects as paths", function(assert) {
   var stats = {};
-  countTypes(stats, null, {
+  var input = {
     oneA: {
       twoA: 42,
       twoB: {
         threeA: false
       }
     }
-  });
+  };
+  countTypes(stats, null, input);
   assert.equal(stats["oneA.twoA"].number, 1);
   assert.equal(stats["oneA.twoB.threeA"].boolean, 1);
-  countTypes(stats, null, {
-    oneA: {
-      twoA: 42,
-      twoB: {
-        threeA: false
-      }
-    }
-  });
+  countTypes(stats, null, input);
   assert.equal(stats["oneA.twoA"].number, 2);
   assert.equal(stats["oneA.twoB.threeA"].boolean, 2);
   assert.end();
