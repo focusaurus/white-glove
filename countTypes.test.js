@@ -53,5 +53,15 @@ test("countTypes should handle nested objects as paths", function(assert) {
   });
   assert.equal(stats["oneA.twoA"].number, 1);
   assert.equal(stats["oneA.twoB.threeA"].boolean, 1);
+  countTypes(stats, null, {
+    oneA: {
+      twoA: 42,
+      twoB: {
+        threeA: false
+      }
+    }
+  });
+  assert.equal(stats["oneA.twoA"].number, 2);
+  assert.equal(stats["oneA.twoB.threeA"].boolean, 2);
   assert.end();
 });
