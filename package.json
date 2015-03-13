@@ -4,7 +4,7 @@
   "description": "Finds dirt on your data",
   "private": true,
   "scripts": {
-    "test": "tape **/*.test.js | tap-spec"
+    "test": "tape *.test.js **/*.test.js | tap-spec"
   },
   "repository": {
     "type": "git",
