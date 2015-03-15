@@ -12,22 +12,31 @@ function increment(stats, keyPath, theType) {
   stats[keyPath] = typeCounts;
 }
 
-function countTypes(stats, path, object) {
+function countTypes(stats, keyPath, input) {
   stats = stats || {};
-  path = path || "";
-  for (var key in object) {
-    var value = object[key];
-    var theType = tipe(value);
-    var keyPath = path.length ? path + "." + key : key;
-    if (theType === "object") {
-      if (value instanceof ObjectID) {
+  keyPath = keyPath || "";
+  var theType = tipe(input);
+  switch (theType) {
+    case "object":
+      if (input instanceof ObjectID) {
         increment(stats, keyPath, "objectid");
-      } else {
-        countTypes(stats, keyPath, value);
+        return;
       }
-    } else {
       increment(stats, keyPath, theType);
-    }
+      for (var key in input) {
+        var subPath = keyPath.length ? keyPath + "." + key : key;
+        countTypes(stats, subPath, input[key]);
+      }
+      break;
+    case "array":
+      var nextPath = keyPath + "[]";
+      increment(stats, keyPath, theType);
+      input.forEach(function(item) {
+        countTypes(stats, nextPath, item);
+      });
+      break;
+    default:
+      increment(stats, keyPath, theType);
   }
 }
 

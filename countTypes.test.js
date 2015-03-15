@@ -2,6 +2,26 @@ var countTypes = require("./countTypes");
 var ObjectID = require("mongodb").ObjectID;
 var test = require("tape");
 
+test("countTypes should handle scalars", function(assert) {
+  [
+    [0, "number"],
+    [1.1, "number"],
+    [true, "boolean"],
+    [false, "boolean"],
+    ["a", "string"],
+    [function(){}, "function"],
+    [/a/, "regexp"]
+  ].forEach(function(pair) {
+    var stats = {};
+    countTypes(stats, pair[1], pair[0]);
+    // stats ends up looking like
+    // {number: {number: 1}}
+    var keyPath = pair[1];
+    assert.equal(stats[keyPath][keyPath], 1);
+  });
+
+  assert.end();
+});
 test("countTypes should store type info per-path", function(assert) {
   var stats = {};
   countTypes(stats, null, {
@@ -61,9 +81,20 @@ test("countTypes should handle nested objects as paths", function(assert) {
   assert.end();
 });
 
-test("countTypes - mongodb ObjectID instances", function (assert) {
+test("countTypes - mongodb ObjectID instances", function(assert) {
   var stats = {};
-  countTypes(stats, null, {_id: new ObjectID()});
+  countTypes(stats, null, {
+    _id: new ObjectID()
+  });
   assert.equal(stats._id.objectid, 1);
+  assert.end();
+});
+
+test("countTypes should handle array of scalars", function(assert) {
+  var stats = {};
+  countTypes(stats, null, {
+    one: [1, 2, 3]
+  });
+  assert.equal(stats["one[]"].number, 3);
   assert.end();
 });
