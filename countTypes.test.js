@@ -1,7 +1,7 @@
 var countTypes = require("./countTypes");
 var ObjectID = require("mongodb").ObjectID;
 var test = require("tape");
-var util = require("util");
+
 test("countTypes should handle scalars", function(assert) {
   [
     [0, "number"],
@@ -93,36 +93,38 @@ test("countTypes - mongodb ObjectID instances", function(assert) {
 
 test("countTypes should handle array of scalars (number)", function(assert) {
   var stats = {};
-  countTypes(stats, null, {
-    one: [1, 2, 3]
-  });
-  assert.equal(stats["one[]"].number, 3);
+  countTypes(stats, null, [1, 2, 3]);
+  assert.equal(stats["[]"].number, 3);
   assert.end();
 });
 
 test("countTypes should handle array of scalars (boolean)", function(assert) {
   var stats = {};
-  countTypes(stats, null, {
-    one: [true, false, true, false]
-  });
-  assert.equal(stats["one[]"].boolean, 4);
+  countTypes(stats, null, [true, false, true, false]);
+  assert.equal(stats["[]"].boolean, 4);
   assert.end();
 });
 
 test("countTypes should handle array of scalars (string)", function(assert) {
   var stats = {};
-  countTypes(stats, null, {
-    one: ["a", "b", "c", "d"]
-  });
-  assert.equal(stats["one[]"].string, 4);
+  countTypes(stats, null, ["a", "b", "c", "d"]);
+  assert.equal(stats["[]"].string, 4);
   assert.end();
 });
 
 test("countTypes should handle array of scalars (ObjectID)", function(assert) {
   var stats = {};
-  countTypes(stats, null, {
-    one: [new ObjectID(), new ObjectID()]
-  });
-  assert.equal(stats["one[]"].objectid, 2);
+  countTypes(stats, null, [new ObjectID(), new ObjectID()]);
+  assert.equal(stats["[]"].objectid, 2);
+  assert.end();
+});
+
+test("countTypes should handle mixed types", function(assert) {
+  var stats = {};
+  countTypes(stats, null, [new ObjectID(), 1, "a", false, "b"]);
+  assert.equal(stats["[]"].objectid, 1);
+  assert.equal(stats["[]"].number, 1);
+  assert.equal(stats["[]"].string, 2);
+  assert.equal(stats["[]"].boolean, 1);
   assert.end();
 });
