@@ -112,6 +112,13 @@ test("countTypes should handle array of scalars (string)", function(assert) {
   assert.end();
 });
 
+test("countTypes should handle array of scalars (Date)", function(assert) {
+  var stats = {};
+  countTypes(stats, null, [new Date(), new Date()]);
+  assert.equal(stats["[]"].date, 2);
+  assert.end();
+});
+
 test("countTypes should handle array of scalars (ObjectID)", function(assert) {
   var stats = {};
   countTypes(stats, null, [new ObjectID(), new ObjectID()]);
