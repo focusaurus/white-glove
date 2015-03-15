@@ -1,4 +1,5 @@
 var countTypes = require("./countTypes");
+var ObjectID = require("mongodb").ObjectID;
 var test = require("tape");
 
 test("countTypes should store type info per-path", function(assert) {
@@ -57,5 +58,12 @@ test("countTypes should handle nested objects as paths", function(assert) {
   countTypes(stats, null, input);
   assert.equal(stats["oneA.twoA"].number, 2);
   assert.equal(stats["oneA.twoB.threeA"].boolean, 2);
+  assert.end();
+});
+
+test("countTypes - mongodb ObjectID instances", function (assert) {
+  var stats = {};
+  countTypes(stats, null, {_id: new ObjectID()});
+  assert.equal(stats._id.objectid, 1);
   assert.end();
 });
