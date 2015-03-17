@@ -5,8 +5,8 @@ function buildCountTypesStream() {
   var stats = {};
   var stream = through2.obj(function (object, enc, callback) {
     countTypes(stats, null, object);
-    this.push(object);
-    callback();
+    console.log("@bug countTypes stream handler invoking callback", object._id);
+    callback(null, object);
   });
   stream.stats = stats;
   return stream;

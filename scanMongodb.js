@@ -1,24 +1,23 @@
 #!/usr/bin/env node
+var countTypesStream = require("./countTypes").stream();
 var mongodbFootman = require("./footmen/mongodb");
-var countTypes = require("./countTypes");
 var rules = require("./rules");
-var stats = {};
 
-function onData(object) {
-  countTypes(stats, null, object);
-
-}
 function onEnd() {
-  console.log(rules(stats));
-  console.log("done", stats);
+  console.log(rules(countTypesStream.stats));
+  console.log("done", countTypesStream.stats);
 }
 
-mongodbFootman(process.argv[2], process.argv[3], function (error, stream) {
+mongodbFootman(process.argv[2], process.argv[3], function (error, mongoStream) {
   if (error) {
     console.error(error, "UNEXPECTED_ERROR");
     return;
   }
-  stream.on("data", onData);
-  stream.on("error", console.error);
-  stream.on("end", onEnd);
+  mongoStream.pipe(countTypesStream);
+  countTypesStream
+    .on("error", console.error)
+    .on("end", onEnd)
+    .on("data", function (doc) {
+      console.log("@bug countTypesStream data", doc);
+    });
 });

@@ -27,7 +27,7 @@
   "dependencies": {
     "lodash": "3.5.0",
     "mongodb": "1.4.34",
-    "through2": "1.1.1",
+    "through2": "0.6.3",
     "tipe": "0.1.12"
   }
 }
