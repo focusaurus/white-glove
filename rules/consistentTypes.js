@@ -6,7 +6,7 @@ function check(stats, results) {
     var types = _.keys(typeCounts);
     types = _.without(types, "null");
     if (types.length > 1) {
-      results.warning("Inconsistent Types", {keyPath: keyPath, types: types});
+      results.warning("inconsistent types", {keyPath: keyPath, types: types});
     }
   }
 }

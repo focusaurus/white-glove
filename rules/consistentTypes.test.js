@@ -1,4 +1,3 @@
-var _ = require("lodash");
 var test = require("tape");
 var countTypes = require("../countTypes");
 var consistentTypes = require("./consistentTypes");
@@ -27,7 +26,7 @@ test("rules/consistentTypes should find paths", function(assert) {
   countTypes(stats, null, input3);
   consistentTypes(stats, results);
   var expected = [{
-    message: "Inconsistent Types",
+    message: "inconsistent types",
     keyPath: "two",
     types: ["boolean", "string"]
   }];
