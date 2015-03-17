@@ -1,17 +1,24 @@
 #!/usr/bin/env node
-var MongodbFootman = require("./footmen/mongodb");
+var mongodbFootman = require("./footmen/mongodb");
 var countTypes = require("./countTypes");
 var rules = require("./rules");
 var stats = {};
 
-function end() {
+function onData(object) {
+  countTypes(stats, null, object);
+
+}
+function onEnd() {
   console.log(rules(stats));
   console.log("done", stats);
 }
 
-var footman = new MongodbFootman(process.argv[2], process.argv[3]);
-
-footman.on("error", console.error);
-footman.on("end", end);
-footman.on("object", countTypes.bind(null, stats, null));
-footman.start();
+mongodbFootman(process.argv[2], process.argv[3], function (error, stream) {
+  if (error) {
+    console.error(error, "UNEXPECTED_ERROR");
+    return;
+  }
+  stream.on("data", onData);
+  stream.on("error", console.error);
+  stream.on("end", onEnd);
+});
