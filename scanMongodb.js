@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 var MongodbFootman = require("./footmen/mongodb");
 var countTypes = require("./countTypes");
+var rules = require("./rules");
 var stats = {};
 
 function end() {
+  console.log(rules(stats));
   console.log("done", stats);
 }
 

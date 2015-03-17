@@ -1,10 +1,10 @@
+var _ = require("lodash");
 var tipe = require("tipe");
-var has = require("lodash.has");
 var ObjectID = require("mongodb").ObjectID;
 
 function increment(stats, keyPath, theType) {
   var typeCounts = stats[keyPath] || {};
-  if (has(typeCounts, theType)) {
+  if (_.has(typeCounts, theType)) {
     typeCounts[theType] += 1;
   } else {
     typeCounts[theType] = 1;
