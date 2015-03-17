@@ -48,7 +48,12 @@ function buildCountTypesStream() {
     this.push(object);
     callback();
   });
-  stream.stats = stats;
+  stream.on("end", function () {
+    stream.results = {
+      total: stats[""].object,
+      typesCounts: _.omit(stats, "")
+    };
+  });
   return stream;
 }
 

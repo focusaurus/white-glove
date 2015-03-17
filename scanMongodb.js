@@ -6,9 +6,9 @@ var rules = require("./rules");
 
 function onEnd() {
   console.log("----- Results -----");
-  console.log(rules(countTypesStream.stats));
+  console.log(rules(countTypesStream.results.typeCounts));
   console.log("----- Stats -----");
-  console.log(countTypesStream.stats);
+  console.log(countTypesStream.results);
 }
 
 mongodbFootman(process.argv[2], process.argv[3], function (error, mongoStream) {
