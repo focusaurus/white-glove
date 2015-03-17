@@ -50,7 +50,7 @@ function buildCountTypesStream() {
   });
   stream.on("end", function () {
     stream.results = {
-      total: stats[""].object,
+      total: (stats[""] || {}).object || 0,
       typesCounts: _.omit(stats, "")
     };
   });
