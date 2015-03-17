@@ -25,6 +25,7 @@
     "tape": "3.5.0"
   },
   "dependencies": {
+    "dev-null-stream": "0.0.1",
     "lodash": "3.5.0",
     "mongodb": "1.4.34",
     "through2": "1.1.1",
