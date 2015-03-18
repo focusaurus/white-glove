@@ -1,7 +1,7 @@
 var _ = require("lodash");
 var ObjectID = require("mongodb").ObjectID;
 var spy = require("through2-spy");
-var tipe = require("tipe");
+var type = require("./type");
 
 var EMAIL_RE = /.@./;
 /* eslint max-len:0 */
@@ -14,29 +14,31 @@ var checksByPatternName = {
   "hexadecimal:objectid": function objectid(theString) {
     return ObjectID.isValid(theString);
   },
-  email: function (theString) {
+  email: function(theString) {
     return EMAIL_RE.test(theString);
   },
-  "date:iso8601": function (theString) {
+  "date:iso8601": function(theString) {
     return ISO8601_RE.test(theString);
   }
 };
 
 function countPatterns(stats, keyPath, theString) {
   var patternCounts = stats[keyPath] || {};
-  _.each(checksByPatternName, function (checker, pattern) {
+  _.each(checksByPatternName, function(checker, pattern) {
     if (checker(theString)) {
       patternCounts[pattern] = patternCounts[pattern] || 0;
       patternCounts[pattern]++;
     }
   });
-  stats[keyPath] = patternCounts;
+  if (!_.isEmpty(patternCounts)) {
+    stats[keyPath] = patternCounts;
+  }
 }
 
 function stringPatterns(stats, keyPath, input) {
   stats = stats || {};
   keyPath = keyPath || "";
-  var theType = tipe(input);
+  var theType = type(input);
   switch (theType) {
     case "object":
       for (var key in input) {
@@ -54,6 +56,8 @@ function stringPatterns(stats, keyPath, input) {
       countPatterns(stats, keyPath, input);
       break;
   }
+  // this is mostly a convenience for unit testing
+  return stats;
 }
 
 function buildStringPatternStream() {

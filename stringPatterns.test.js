@@ -12,9 +12,14 @@ _.each([
 ], function(pair) {
 
   test("stringPatterns should count patterns properly", function(assert) {
-    var stats = {};
-    stringPatterns(stats, "key", pair[1]);
+    var stats = stringPatterns(null, "key", pair[1]);
     assert.equal(stats.key[pair[0]], 1);
     assert.end();
   });
+});
+
+test("stringPatterns should omit non-matching strings", function(assert) {
+  var stats = stringPatterns(null, "key", "no pattern matches this");
+  assert.true(_.isEmpty(stats));
+  assert.end();
 });

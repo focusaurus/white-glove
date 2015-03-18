@@ -1,7 +1,7 @@
 var _ = require("lodash");
 var ObjectID = require("mongodb").ObjectID;
 var spy = require("through2-spy").obj;
-var tipe = require("tipe");
+var type = require("./type");
 
 function increment(stats, keyPath, theType) {
   var typeCounts = stats[keyPath] || {};
@@ -16,13 +16,9 @@ function increment(stats, keyPath, theType) {
 function countTypes(stats, keyPath, input) {
   stats = stats || {};
   keyPath = keyPath || "";
-  var theType = tipe(input);
+  var theType = type(input);
   switch (theType) {
     case "object":
-      if (input instanceof ObjectID) {
-        increment(stats, keyPath, "objectid");
-        return;
-      }
       increment(stats, keyPath, theType);
       for (var key in input) {
         var subPath = keyPath.length ? keyPath + "." + key : key;
