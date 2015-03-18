@@ -24,8 +24,7 @@ test("countTypes should handle scalars", function(assert) {
 });
 
 test("countTypes should store type info per-path", function(assert) {
-  var stats = {};
-  countTypes(stats, null, {
+  var stats = countTypes(null, null, {
     one: "one",
     two: false,
     three: 42,
@@ -43,8 +42,7 @@ test("countTypes should store type info per-path", function(assert) {
 });
 
 test("countTypes should count type instances properly", function(assert) {
-  var stats = {};
-  countTypes(stats, null, {
+  var stats = countTypes(null, null, {
     one: true,
     two: 42
   });
@@ -64,7 +62,6 @@ test("countTypes should count type instances properly", function(assert) {
 });
 
 test("countTypes should handle nested objects as paths", function(assert) {
-  var stats = {};
   var input = {
     oneA: {
       twoA: 42,
@@ -73,7 +70,7 @@ test("countTypes should handle nested objects as paths", function(assert) {
       }
     }
   };
-  countTypes(stats, null, input);
+  var stats = countTypes(null, null, input);
   assert.equal(stats["oneA.twoA"].number, 1);
   assert.equal(stats["oneA.twoB.threeA"].boolean, 1);
   countTypes(stats, null, input);
@@ -83,8 +80,7 @@ test("countTypes should handle nested objects as paths", function(assert) {
 });
 
 test("countTypes - mongodb ObjectID instances", function(assert) {
-  var stats = {};
-  countTypes(stats, null, {
+  var stats = countTypes(null, null, {
     _id: new ObjectID()
   });
   assert.equal(stats._id.objectid, 1);
@@ -92,43 +88,37 @@ test("countTypes - mongodb ObjectID instances", function(assert) {
 });
 
 test("countTypes should handle array of scalars (number)", function(assert) {
-  var stats = {};
-  countTypes(stats, null, [1, 2, 3]);
+  var stats = countTypes(null, null, [1, 2, 3]);
   assert.equal(stats["[]"].number, 3);
   assert.end();
 });
 
 test("countTypes should handle array of scalars (boolean)", function(assert) {
-  var stats = {};
-  countTypes(stats, null, [true, false, true, false]);
+  var stats = countTypes(null, null, [true, false, true, false]);
   assert.equal(stats["[]"].boolean, 4);
   assert.end();
 });
 
 test("countTypes should handle array of scalars (string)", function(assert) {
-  var stats = {};
-  countTypes(stats, null, ["a", "b", "c", "d"]);
+  var stats = countTypes(null, null, ["a", "b", "c", "d"]);
   assert.equal(stats["[]"].string, 4);
   assert.end();
 });
 
 test("countTypes should handle array of scalars (Date)", function(assert) {
-  var stats = {};
-  countTypes(stats, null, [new Date(), new Date()]);
+  var stats = countTypes(null, null, [new Date(), new Date()]);
   assert.equal(stats["[]"].date, 2);
   assert.end();
 });
 
 test("countTypes should handle array of scalars (ObjectID)", function(assert) {
-  var stats = {};
-  countTypes(stats, null, [new ObjectID(), new ObjectID()]);
+  var stats = countTypes(null, null, [new ObjectID(), new ObjectID()]);
   assert.equal(stats["[]"].objectid, 2);
   assert.end();
 });
 
 test("countTypes should handle mixed types", function(assert) {
-  var stats = {};
-  countTypes(stats, null, [new ObjectID(), 1, "a", false, "b"]);
+  var stats = countTypes(null, null, [new ObjectID(), 1, "a", false, "b"]);
   assert.equal(stats["[]"].objectid, 1);
   assert.equal(stats["[]"].number, 1);
   assert.equal(stats["[]"].string, 2);

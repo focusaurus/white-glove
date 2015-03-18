@@ -35,6 +35,8 @@ function countTypes(stats, keyPath, input) {
     default:
       increment(stats, keyPath, theType);
   }
+  // this is mostly a convenience for unit testing
+  return stats;
 }
 
 function buildCountTypesStream() {
