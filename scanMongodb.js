@@ -10,8 +10,9 @@ function onEnd() {
   countTypesStream.end();
   stringPatternsStream.end();
   console.log("Total scanned:", totalStream.total);
-  console.log("----- Results -----");
+  console.log("----- Type Analysis -----");
   console.log(countTypesStream.resultSet);
+  console.log("----- String Pattern Analysis -----");
   console.log(stringPatternsStream.resultSet);
 }
 
