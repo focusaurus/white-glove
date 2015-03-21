@@ -1,7 +1,6 @@
 var _ = require("lodash");
 var ObjectID = require("mongodb").ObjectID;
-var spy = require("through2-spy");
-var type = require("./type");
+var type = require("../type");
 
 var EMAIL_RE = /.@./;
 /* eslint max-len:0 */
@@ -60,16 +59,4 @@ function stringPatterns(stats, keyPath, input) {
   return stats;
 }
 
-function buildStringPatternStream() {
-  var stats = {};
-  var stream = spy.obj(function patternTransform(object) {
-    stringPatterns(stats, null, object);
-  });
-  stream.end = function patternEnd() {
-    stream.results = _.omit(stats, "");
-  };
-  return stream;
-}
-
 module.exports = stringPatterns;
-module.exports.stream = buildStringPatternStream;

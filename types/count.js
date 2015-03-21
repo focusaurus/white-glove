@@ -1,7 +1,5 @@
 var _ = require("lodash");
-var ObjectID = require("mongodb").ObjectID;
-var spy = require("through2-spy").obj;
-var type = require("./type");
+var type = require("../type");
 
 function increment(stats, keyPath, theType) {
   var typeCounts = stats[keyPath] || {};
@@ -39,16 +37,4 @@ function countTypes(stats, keyPath, input) {
   return stats;
 }
 
-function buildCountTypesStream() {
-  var stats = {};
-  var stream = spy(function(object) {
-    countTypes(stats, null, object);
-  });
-  stream.end = function end() {
-    stream.results = _.omit(stats, "");
-  };
-  return stream;
-}
-
 module.exports = countTypes;
-module.exports.stream = buildCountTypesStream;

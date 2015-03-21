@@ -1,7 +1,7 @@
 var test = require("tape");
-var countTypes = require("../countTypes");
-var consistentTypes = require("./consistentTypes");
-var Results = require("./Results");
+var countTypes = require("./count");
+var consistentTypes = require("./consistent");
+var ResultSet = require("../ResultSet");
 
 test("rules/consistentTypes should find paths", function(assert) {
   var input1 = {
@@ -20,16 +20,17 @@ test("rules/consistentTypes should find paths", function(assert) {
     three: []
   };
   var stats = {};
-  var results = new Results();
+  var resultSet = new ResultSet();
   countTypes(stats, null, input1);
   countTypes(stats, null, input2);
   countTypes(stats, null, input3);
-  consistentTypes(stats, results);
+  resultSet.stats = stats;
+  consistentTypes(resultSet);
   var expected = [{
     message: "inconsistent types",
     keyPath: "two",
     types: ["boolean", "string"]
   }];
-  assert.deepEqual(results.warnings, expected);
+  assert.deepEqual(resultSet.warnings, expected);
   assert.end();
 });

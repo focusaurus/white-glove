@@ -1,4 +1,4 @@
-var countTypes = require("./countTypes");
+var countTypes = require("./count");
 var ObjectID = require("mongodb").ObjectID;
 var test = require("tape");
 
