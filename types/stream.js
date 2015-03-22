@@ -2,11 +2,12 @@ var _ = require("lodash");
 var consistent = require("./consistent");
 var countTypes = require("./count");
 var ResultSet = require("../ResultSet");
-var spy = require("through2-spy").obj;
+var spy = require("../spy");
 
 function buildCountTypesStream() {
   var stats = {};
-  var stream = spy(function(object) {
+  // http://stackoverflow.com/a/29196775/266795
+  var stream = spy(function transform(object) {
     countTypes(stats, null, object);
   });
   stream.end = function end() {
