@@ -5,15 +5,20 @@ var mongodbFootman = require("./footmen/mongodb");
 var mux = require("mux");
 var stringPatternsStream = require("./patterns/stream")();
 var totalStream = require("./countTotal")();
+var util = require("util");
+
+function out(message) {
+  console.log(util.inspect(message, {depth: null}));
+}
 
 function onEnd() {
   countTypesStream.end();
   stringPatternsStream.end();
-  console.log("Total scanned:", totalStream.total);
+  console.log("Total scanned: " + totalStream.total);
   console.log("----- Type Analysis -----");
-  console.log(countTypesStream.resultSet);
+  out(countTypesStream.resultSet);
   console.log("----- String Pattern Analysis -----");
-  console.log(stringPatternsStream.resultSet);
+  out(stringPatternsStream.resultSet);
 }
 
 mongodbFootman(process.argv[2], process.argv[3], function(error, mongoStream) {
