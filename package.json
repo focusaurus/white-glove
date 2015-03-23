@@ -27,6 +27,7 @@
   "dependencies": {
     "cradle": "0.6.9",
     "lodash": "3.5.0",
+    "minimist": "1.1.1",
     "mongodb": "1.4.34",
     "stream-array": "1.0.1",
     "terminus": "1.0.11",

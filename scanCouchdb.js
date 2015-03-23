@@ -1,3 +1,4 @@
 #!/usr/bin/env node
+var options = require("minimist")(process.argv.slice(2));
 require("./footmen/couchdb")(
-  process.argv[2], process.argv[3], process.argv[4], require("./scanStream"));
+  options.url, options.db, options.view, require("./scanStream"));

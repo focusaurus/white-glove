@@ -1,3 +1,5 @@
 #!/usr/bin/env node
+var options = require("minimist")(process.argv.slice(2));
+
 require("./footmen/mongodb")(
-  process.argv[2], process.argv[3], require("./scanStream"));
+  options.url, options.collection, require("./scanStream"));
