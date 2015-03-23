@@ -2,10 +2,11 @@
 
 var countTypesStream = require("./types/stream")();
 var mongodbFootman = require("./footmen/mongodb");
-var mux = require("mux");
 var stringPatternsStream = require("./patterns/stream")();
+var terminus = require("terminus");
 var totalStream = require("./countTotal")();
 var util = require("util");
+
 
 function out(message) {
   console.log(util.inspect(message, {depth: null}));
@@ -29,5 +30,8 @@ mongodbFootman(process.argv[2], process.argv[3], function(error, mongoStream) {
   mongoStream
     .on("error", console.error)
     .on("end", onEnd)
-    .pipe(mux(totalStream, countTypesStream, stringPatternsStream));
+    .pipe(totalStream)
+    .pipe(countTypesStream)
+    .pipe(stringPatternsStream)
+    .pipe(terminus.devnull({objectMode: true}));
 });
