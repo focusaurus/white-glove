@@ -10,4 +10,12 @@ This tool can scan records from databases or other data sources, analyze the dat
 
 ### Scanning CouchDB
 
-`./scanCouchdb.js --url http://somehost --db somedb --view some/view`
+`./scanCouchdb.js --host somehost --database somedb --view some/view`
+
+Full options:
+
+- `--host=somehost`
+- `--port=5984`
+- `--username=alice`
+- `--password=s3cr3t`
+- `--secure=true`
