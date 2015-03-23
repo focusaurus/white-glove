@@ -1,7 +1,7 @@
-var patternStream = require("./patterns/stream")();
+var patternStream = require("../patterns/stream")();
 var terminus = require("terminus");
-var totalStream = require("./countTotal")();
-var typeStream = require("./types/stream")();
+var totalStream = require("../countTotal")();
+var typeStream = require("../types/stream")();
 var util = require("util");
 
 function out(message) {

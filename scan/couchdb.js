@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var _ = require("lodash");
 var cradle = require("cradle");
 var streamArray = require("stream-array");
@@ -16,8 +17,7 @@ function getStream(options, callback) {
       password: options.password
     };
   }
-  var connection = new cradle.Connection(
-    options.host, options.port || 5984, options);
+  var connection = new cradle.Connection(options.host, options.port, options);
   var database = connection.database(options.database);
   database.view(options.view, function (error, objects) {
     if (error) {
@@ -27,5 +27,8 @@ function getStream(options, callback) {
     callback(null, streamArray(_.pluck(objects, "value")));
   });
 }
-
 module.exports = getStream;
+
+if (require.main === module) {
+  getStream(require("minimist")(process.argv.slice(2)), require("./stream"));
+}
