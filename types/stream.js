@@ -13,7 +13,7 @@ function buildCountTypesStream() {
     var resultSet = new ResultSet();
     resultSet.stats = _.omit(stats, "");
     consistent(resultSet);
-    stream.resultSet = resultSet;
+    return resultSet;
   };
   return stream;
 }
