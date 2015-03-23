@@ -33,5 +33,6 @@ mongodbFootman(process.argv[2], process.argv[3], function(error, mongoStream) {
     .pipe(totalStream)
     .pipe(countTypesStream)
     .pipe(stringPatternsStream)
+    // http://stackoverflow.com/q/29189888/266795
     .pipe(terminus.devnull({objectMode: true}));
 });

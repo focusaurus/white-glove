@@ -2,11 +2,10 @@ var _ = require("lodash");
 var consistent = require("./consistent");
 var count = require("./count");
 var ResultSet = require("../ResultSet");
-var spy = require("../spy");
+var spy = require("through2-spy").obj;
 
 function buildPatternStream() {
   var stats = {};
-  //http://stackoverflow.com/a/29196775/266795
   var stream = spy(function transform(object) {
     count(stats, null, object);
   });

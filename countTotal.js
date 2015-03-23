@@ -1,4 +1,4 @@
-var spy = require("./spy");
+var spy = require("through2-spy").obj;
 
 function getStream() {
   var stream = spy(function() {
