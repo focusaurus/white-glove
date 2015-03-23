@@ -1,3 +1,4 @@
+var _ = require("lodash");
 var cradle = require("cradle");
 var streamArray = require("stream-array");
 
@@ -9,7 +10,7 @@ function getStream(url, database, view, callback) {
       callback(error);
       return;
     }
-    callback(null, streamArray(objects));
+    callback(null, streamArray(_.pluck(objects, "value")));
   });
 }
 
