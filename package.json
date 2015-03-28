@@ -4,7 +4,8 @@
   "description": "Finds dirt on your data",
   "private": true,
   "scripts": {
-    "test": "tape *.test.js **/*.test.js | tap-spec"
+    "test": "tape *.test.js **/*.test.js | tap-spec",
+    "stats": "stats -T patterns scan types *.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   "license": "Copyright 2015 Peter Lyons LLC",
   "devDependencies": {
     "eslint": "0.16.2",
+    "stats": "1.0.0",
     "tap-spec": "2.2.2",
     "tape": "3.5.0"
   },
