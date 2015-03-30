@@ -1,7 +1,8 @@
 var _ = require("lodash");
+var allArrays = require("./allArrays");
 var consistent = require("./consistent");
-var countUndefined = require("./countUndefined");
 var countTypes = require("./count");
+var countUndefined = require("./countUndefined");
 var ResultSet = require("../ResultSet");
 var spy = require("through2-spy").obj;
 
@@ -19,6 +20,7 @@ function buildCountTypesStream() {
     resultSet.total = total;
     countUndefined(stats, total);
     consistent(resultSet);
+    allArrays(resultSet);
     return resultSet;
   };
   return stream;

@@ -19,3 +19,8 @@ Full options:
 - `--username=alice`
 - `--password=s3cr3t`
 - `--secure=true`
+
+# Rule Interpretation
+
+- "inconsistent use of arrays": there is a mix of arrays and other types at a given key path. This makes coding difficult and can cause exceptions as well as incorrect conditional logic because empty arrays are truthy in JavaScript.
+  - **Recommendation**: change the data to use arrays consistently, including empty arrays instead of null/undefined.
