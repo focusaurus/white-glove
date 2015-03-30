@@ -1,6 +1,5 @@
 var patternStream = require("../patterns/stream")();
 var terminus = require("terminus");
-var totalStream = require("../countTotal")();
 var typeStream = require("../types/stream")();
 var util = require("util");
 
@@ -9,9 +8,10 @@ function out(message) {
 }
 
 function onEnd() {
-  console.log("Total scanned: " + totalStream.end());
+  var typeStats = typeStream.end();
+  console.log("Total scanned: " + typeStats.total);
   console.log("----- Type Analysis -----");
-  out(typeStream.end());
+  out(typeStats);
   console.log("----- String Pattern Analysis -----");
   out(patternStream.end());
 }
@@ -24,7 +24,6 @@ function scanStream(error, stream) {
   stream
     .on("error", console.error)
     .on("end", onEnd)
-    .pipe(totalStream)
     .pipe(typeStream)
     .pipe(patternStream)
     // http://stackoverflow.com/q/29189888/266795

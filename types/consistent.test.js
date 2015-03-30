@@ -3,7 +3,7 @@ var countTypes = require("./count");
 var consistentTypes = require("./consistent");
 var ResultSet = require("../ResultSet");
 
-test("rules/consistentTypes should find paths", function(assert) {
+test("types/consistent should find paths", function(assert) {
   var input1 = {
     one: true,
     two: false,
@@ -32,5 +32,24 @@ test("rules/consistentTypes should find paths", function(assert) {
     types: ["boolean", "string"]
   }];
   assert.deepEqual(resultSet.warnings, expected);
+  assert.end();
+});
+
+test("types/consistent should ignore null and undefined", function (assert) {
+  var input1 = {
+    one: true
+  };
+  var input2 = {
+    one: null
+  };
+  var input3 = {}; // undefined
+  var stats = {};
+  var resultSet = new ResultSet();
+  countTypes(stats, null, input1);
+  countTypes(stats, null, input2);
+  countTypes(stats, null, input3);
+  resultSet.stats = stats;
+  consistentTypes(resultSet);
+  assert.deepEqual(resultSet.warnings.length, 0);
   assert.end();
 });
