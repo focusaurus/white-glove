@@ -1,15 +1,29 @@
 #!/usr/bin/env node
-var getMongodbStream = require("./mongodb");
+var argvSplit = require("argv-split");
 var getCouchdbStream = require("./couchdb");
+var getMongodbStream = require("./mongodb");
 var joi = require("joi");
-var options = require("minimist")(process.argv.slice(2));
+var minimist = require("minimist");
 var scanStream = require("./stream");
 var url = require("url");
 
+// When run via ssh, process.argv looks like:
+// [ '/usr/bin/iojs',
+// '/vagrant/scan/ssh.js',
+// '-c',
+// '--server mongodb --port 53045 --database surfreport --collection spots' ]
+var options = {};
+if (process.argv[2] === "-c") {
+  options = minimist(argvSplit(process.argv[3]));
+} else {
+  // if running directly for dev, can process argv normally
+  options = minimist(process.argv.slice(2));
+}
 // End user runs something like
 // ssh \
 // -R 5656:localhost:27017 \
-// carson@carson.io \
+// scan@carson.io \
+// -- \
 // --server=mongodb
 // --port=5656 \
 // --database=stores \

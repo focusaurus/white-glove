@@ -27,6 +27,7 @@
     "tape": "3.5.0"
   },
   "dependencies": {
+    "argv-split": "0.1.1",
     "cradle": "0.6.9",
     "get-port": "1.0.0",
     "inquirer": "0.8.5",

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 var inquirer = require("inquirer");
 var getPort = require("get-port");
 
@@ -50,8 +49,8 @@ inquirer.prompt(questions, function(answers) {
       "ssh",
       "-R",
       port + ":" + answers.host + ":" + answers.port,
-      "carson@wg.carson.dev",
-      "/vagrant/scan/ssh.js",
+      "scan@wg.carson.dev",
+      "--",
       "--server",
       answers.server.toLowerCase(),
       "--port",
@@ -63,6 +62,5 @@ inquirer.prompt(questions, function(answers) {
     ];
     console.log("Run the command below to scan your data:\n");
     console.log(cli.join(" "));
-
   });
 });
