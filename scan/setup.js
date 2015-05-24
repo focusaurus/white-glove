@@ -1,12 +1,18 @@
 #!/usr/bin/env node
 var inquirer = require("inquirer");
 var getPort = require("get-port");
+var minimist = require("minimist");
+
+var options = minimist(process.argv.slice(2));
 
 var questions = [{
   name: "server",
   message: "What type of database do you want to analyze",
-  choices: ["MongoDB", "CouchDB"],
-  type: "list"
+  choices: ["mongodb", "couchdb"],
+  type: "list",
+  when: function () {
+    return !options.server;
+  }
 }, {
   name: "host",
   message: "What is your database server host (name or IP)",
@@ -29,13 +35,13 @@ var questions = [{
   name: "collection",
   message: "What is the name of the collection to analyze",
   when: function (answers) {
-    return answers.server === "MongoDB";
+    return answers.server === "mongodb";
   }
 }, {
   name: "collection",
   message: "What is the name of the view to analyze",
   when: function (answers) {
-    return answers.server === "CouchDB";
+    return answers.server === "couchdb";
   }
 }];
 inquirer.prompt(questions, function(answers) {
