@@ -4,9 +4,9 @@ var patterns = require("./count");
 
 _.each([
   ["email", "a@example.com"],
-  ["hexadecimal", "abcDEF0123456789FEDcba321"],
+  // ["hexadecimal", "abcDEF0123456789FEDcba321"],
   ["hexadecimal:objectid", "24aaaaaaaabbbbbbbbbbcccc"],
-  ["date:iso8601", "2015"],
+  ["integer", "2015"],
   ["date:iso8601", "2015-03-17"],
   ["date:iso8601", "2015-03-18T03:07:48.575Z"]
 ], function(pair) {
