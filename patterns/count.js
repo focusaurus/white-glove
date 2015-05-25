@@ -31,9 +31,6 @@ function countPatterns(stats, keyPath, theString) {
   var patternCounts = stats[keyPath] || {};
   _.each(checksByPatternName, function(checker, pattern) {
     if (checker(theString)) {
-      if (pattern === "email") {
-        console.log("email", keyPath, theString);
-      }
       patternCounts[pattern] = patternCounts[pattern] || 0;
       patternCounts[pattern]++;
     }
