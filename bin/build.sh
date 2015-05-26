@@ -10,7 +10,7 @@ IFS="$(printf "\n\t")"
 main() {
   cd "$(dirname "$0")/.."
   local git_ref="${1-HEAD}"
-  local build_dir="build"
+  local build_dir=".build"
   local prefix="white-glove-${git_ref}-$(date +%Y%m%d%H%M)"
   mkdir -p "${build_dir}/${prefix}"
   # OSX build support. BSD tar vs GNU tar issue
@@ -32,6 +32,7 @@ main() {
     git archive --format=tar --prefix="${prefix}/" "${git_ref}" \
       | tar -C "${build_dir}" --extract
   fi
+  git log -n 1 "${git_ref}" > "${build_dir}/${prefix}/.commit"
   echo ✓; echo -n "npm packages…"
   tar --create --file - node_modules \
     | tar -C "${build_dir}/${prefix}" --extract --file -

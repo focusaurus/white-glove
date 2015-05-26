@@ -7,4 +7,4 @@ set -o posix      # more strict failures in subshells
 IFS="$(printf "\n\t")"
 cd "$(dirname "$0")/.."
 
-rm -rf ./build
+rm -rf ./.build

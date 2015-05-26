@@ -11,14 +11,19 @@ IFS="$(printf "\n\t")"
 if ! id carson 2> /dev/null; then
   adduser carson --quiet --no-create-home --disabled-login --gecos "Project Carson"
 fi
+archive="$1"
+backup_dir=$(mktemp -d /tmp/white-glove.XXX)
 prefix=/opt/white-glove
-if [[ -d "${prefix}" ]]; then
-  backup_dir=$(mktemp -d /tmp/white-glove.XXX)
-  echo "backing up existing install to ${backup_dir}"
-  mv "${prefix}" "${backup_dir}"
-fi
-install --directory --owner carson --group carson --mode 755 "${prefix}"
-tar --directory "${prefix}" --strip-components 1 --extract --bzip2 --file "$1"
-cd "${prefix}"
+top_dir=$(basename "${archive}" .tar.bz2)
+cd "${backup_dir}"
+tar --extract --bzip2 --file "${archive}"
+cd "${top_dir}"
 npm rebuild --update-binary
-chown -R carson:carson "${prefix}"
+chown -R carson:carson .
+cd "${backup_dir}"
+if [[ -d "${prefix}" ]]; then
+  echo "backing up existing install to ${backup_dir}"
+  mv "${prefix}" "${backup_dir}/white-glove.backup"
+fi
+# install --directory --owner carson --group carson --mode 755 "${prefix}"
+mv "${backup_dir}/${top_dir}" "${prefix}"
