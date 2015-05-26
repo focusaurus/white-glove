@@ -55,7 +55,7 @@ inquirer.prompt(questions, function(answers) {
       "ssh",
       "-R",
       port + ":" + answers.host + ":" + answers.port,
-      "scan@wg.carson.dev",
+      "scan@carson.peterlyons.com",
       "--",
       "--server",
       answers.server.toLowerCase(),

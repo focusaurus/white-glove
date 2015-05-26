@@ -8,10 +8,16 @@ IFS="$(printf "\n\t")"
 curl -sL https://deb.nodesource.com/setup_iojs_2.x | bash -
 apt-get --assume-yes install build-essential iojs
 
-adduser setup --shell /vagrant/scan/setup.js
+prefix=/opt/white-glove
+#prefix=/vagrant
+if ! id setup 2> /dev/null; then
+  adduser setup --quiet --gecos "Project Carson" --shell "${prefix}/scan/setup.js"
+fi
 install /dev/null --owner setup --group setup --mode 644 /home/setup/.hushlogin
 
-adduser scan --shell /vagrant/scan/ssh.js
+if ! id scan 2> /dev/null; then
+  adduser scan --quiet --gecos "Project Carson" --shell "${prefix}/scan/ssh.js"
+fi
 install /dev/null --owner scan --group scan --mode 644 /home/scan/.hushlogin
 
 cat <<EOF >> /etc/ssh/sshd_config
