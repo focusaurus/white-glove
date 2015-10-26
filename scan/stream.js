@@ -21,6 +21,7 @@ function formatByLevel(resultSet) {
       out(level + ": ");
       out(result.keyPath + " " + result.message + " ");
       out(JSON.stringify(result.types));
+      out("\n");
     });
   });
   return outArray.join("");
