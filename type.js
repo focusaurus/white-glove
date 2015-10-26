@@ -1,15 +1,15 @@
-var ObjectID = require("mongodb").ObjectID;
-var tipe = require("tipe");
+var ObjectID = require('mongodb').ObjectID
+var tipe = require('tipe')
 
-function type(value) {
-  var theType = tipe(value);
-  if (theType !== "object") {
-    return theType;
+function type (value) {
+  var theType = tipe(value)
+  if (theType !== 'object') {
+    return theType
   }
   if (value instanceof ObjectID) {
-    return "objectid";
+    return 'objectid'
   }
-  return theType;
+  return theType
 }
 
-module.exports = type;
+module.exports = type
