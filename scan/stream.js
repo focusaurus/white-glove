@@ -1,6 +1,4 @@
-var fs = require('fs')
 var patternStream = require('../patterns/stream')()
-var path = require('path')
 var terminus = require('terminus')
 var typeStream = require('../types/stream')()
 

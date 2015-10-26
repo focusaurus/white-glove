@@ -10,7 +10,6 @@ _.each([
   ['date:iso8601', '2015-03-17'],
   ['date:iso8601', '2015-03-18T03:07:48.575Z']
 ], function (pair) {
-
   test('patterns should count patterns properly', function (assert) {
     var stats = patterns(null, 'key', pair[1])
     assert.equal(stats.key[pair[0]], 1)

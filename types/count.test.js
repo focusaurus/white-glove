@@ -2,6 +2,8 @@ var countTypes = require('./count')
 var ObjectID = require('mongodb').ObjectID
 var test = require('tape')
 
+function noop () {}
+
 test('countTypes should handle scalars', function (assert) {
   [
     [0, 'number'],
@@ -9,7 +11,7 @@ test('countTypes should handle scalars', function (assert) {
     [true, 'boolean'],
     [false, 'boolean'],
     ['a', 'string'],
-    [ function () {}, 'function'],
+    [noop, 'function'],
     [/a/, 'regexp']
   ].forEach(function (pair) {
     var stats = {}
