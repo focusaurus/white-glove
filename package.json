@@ -4,8 +4,9 @@
   "description": "Finds dirt on your data",
   "private": true,
   "scripts": {
-    "test": "tape *.test.js **/*.test.js | tap-spec",
-    "stats": "stats -T patterns scan types *.js"
+    "lint": "eslint .",
+    "stats": "stats -T patterns scan types *.js",
+    "test": "tape *.test.js **/*.test.js | tap-spec"
   },
   "repository": {
     "type": "git",
