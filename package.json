@@ -20,6 +20,9 @@
     "lint"
   ],
   "author": "Peter Lyons <pete@peterlyons.com> (http://peterlyons.com/)",
+  "bin": {
+    "white-glove": "./cli.js"
+  },
   "license": "Copyright 2015 Peter Lyons LLC",
   "devDependencies": {
     "esformatter": "0.7.3",
