@@ -35,7 +35,7 @@
     "npm-check-updates": "2.3.4",
     "stats": "1.0.0",
     "tap-spec": "4.1.0",
-    "tape": "4.2.2"
+    "tape": "4.4.0"
   },
   "dependencies": {
     "argv-split": "0.1.1",
