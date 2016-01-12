@@ -40,7 +40,7 @@
     "argv-split": "0.1.1",
     "cradle": "0.6.9",
     "get-port": "2.0.0",
-    "inquirer": "0.11.1",
+    "inquirer": "0.11.2",
     "joi": "7.1.0",
     "lodash": "3.10.1",
     "minimist": "1.2.0",
