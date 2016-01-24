@@ -1,11 +1,15 @@
 #!/bin/bash
+
+# Start unofficial bash strict mode boilerplate
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
 set -o errexit    # always exit on error
 set -o errtrace   # trap errors in functions as well
-set -o pipefail   # don"t ignore exit codes when piping output
+set -o pipefail   # don't ignore exit codes when piping output
 set -o posix      # more strict failures in subshells
 # set -x          # enable debugging
 
 IFS="$(printf "\n\t")"
+# End unofficial bash strict mode boilerplate
 
 main() {
   cd "$(dirname "$0")/.."
@@ -41,8 +45,8 @@ main() {
   npm --silent dedupe
   npm prune --production
   #remove development-only files
-  find . -name '*.test.js' -maxdepth 3 -delete
-  rm -rf bin vagrant .eslintrc .gitignore .nvmrc Vagrantfile
+  find ./src -name '*.tape.js' -delete
+  rm -rf bin vagrant .eslintrc.json .gitignore .nvmrc Vagrantfile
   cd -
   echo ✓; echo -n "archive…"
   local dist_path="${build_dir}/${prefix}.tar.bz2"

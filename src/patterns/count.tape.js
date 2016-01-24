@@ -1,5 +1,5 @@
 var _ = require('lodash')
-var test = require('tape')
+var test = require('prova')
 var patterns = require('./count')
 
 _.each([

@@ -1,4 +1,4 @@
-var test = require('tape')
+var test = require('prova')
 var countUndefined = require('./countUndefined')
 
 test('countUndefined should count correctly', function (assert) {

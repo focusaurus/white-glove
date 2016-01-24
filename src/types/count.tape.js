@@ -1,6 +1,6 @@
 var countTypes = require('./count')
 var ObjectID = require('mongodb').ObjectID
-var test = require('tape')
+var test = require('prova')
 
 function noop () {}
 

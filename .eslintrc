@@ -1,8 +1,0 @@
-{
-  "env": {
-    "node": true
-  },
-  "extends": [
-    "./node_modules/eslint-config-standard/eslintrc.json"
-  ]
-}
