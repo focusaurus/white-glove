@@ -1,6 +1,6 @@
 {
   "name": "white-glove",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Finds dirt on your data",
   "scripts": {
     "lint": "./bin/lint.sh",
