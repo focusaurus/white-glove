@@ -2,12 +2,18 @@
 
 # run this script as root on the server
 # pass the path to the distribution archive as the command line argument
+
+# Start unofficial bash strict mode boilerplate
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
 set -o errexit    # always exit on error
 set -o errtrace   # trap errors in functions as well
-set -o pipefail   # don"t ignore exit codes when piping output
+set -o pipefail   # don't ignore exit codes when piping output
 set -o posix      # more strict failures in subshells
 # set -x          # enable debugging
+
 IFS="$(printf "\n\t")"
+# End unofficial bash strict mode boilerplate
+
 if ! id carson 2> /dev/null; then
   adduser carson --quiet --no-create-home --disabled-login --gecos "Project Carson"
 fi
