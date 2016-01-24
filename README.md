@@ -5,6 +5,8 @@
 
 [![Build Status](https://semaphoreci.com/api/v1/projects/6f0d47e3-9de5-4257-ab2c-70474dae0f23/645125/badge.svg)](https://semaphoreci.com/focusaurus/white-glove)
 
+[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
 ## Data so clean, even Mr. Carson would approve
 
 This tool can scan records from databases or other data sources, analyze the data, and find anomalies that may be worthy of developer attention.
