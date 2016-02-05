@@ -29,7 +29,7 @@
   ],
   "license": "Copyright 2015 Peter Lyons LLC",
   "devDependencies": {
-    "esformatter": "0.7.3",
+    "esformatter": "0.8.2",
     "esformatter-literal-notation": "1.0.1",
     "esformatter-parseint": "1.0.3",
     "esformatter-quotes": "1.0.3",
