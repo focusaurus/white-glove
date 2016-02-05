@@ -40,7 +40,7 @@
     "cradle": "0.7.1",
     "get-port": "2.0.0",
     "inquirer": "0.11.3",
-    "joi": "7.2.2",
+    "joi": "7.2.3",
     "lodash": "4.0.0",
     "minimist": "1.2.0",
     "mongodb": "2.1.4",
