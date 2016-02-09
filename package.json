@@ -43,7 +43,7 @@
     "joi": "7.2.3",
     "lodash": "4.2.1",
     "minimist": "1.2.0",
-    "mongodb": "2.1.6",
+    "mongodb": "2.1.7",
     "stream-array": "1.1.1",
     "terminus": "1.0.12",
     "through2-spy": "2.0.0",
