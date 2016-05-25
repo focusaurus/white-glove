@@ -1,4 +1,4 @@
-var test = require('prova')
+var test = require('tape-catch')
 var countTypes = require('./count')
 var consistentTypes = require('./consistent')
 var ResultSet = require('../ResultSet')

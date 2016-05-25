@@ -1,5 +1,5 @@
 var ObjectID = require('mongodb').ObjectID
-var test = require('prova')
+var test = require('tape-catch')
 var type = require('./type')
 
 test('type should work properly', function (assert) {

@@ -12,4 +12,4 @@ IFS="$(printf "\n\t")"
 # End unofficial bash strict mode boilerplate
 
 cd "$(dirname "$0")/.."
-./node_modules/.bin/prova './src/**/*.tape.js'
+./node_modules/.bin/tape './src/**/*.tape.js'
